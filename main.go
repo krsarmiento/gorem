@@ -1,23 +1,20 @@
 package main
 
 import (
-    "fmt"
     "reflect"
+    "fmt"
 )
 
-type Person struct {
-    Name string
-    Age  int
-}
-
 func main() {
-    person := Person{"rafael", 25}
-    s := reflect.ValueOf(&person).Elem()
-    typeOfPerson := s.Type()
-    for i := 0; i < s.NumField(); i++ {
-        field := s.Field(i)
-        fmt.Println(typeOfPerson.Field(i).Name)
-        fmt.Println(field.Type())
-        fmt.Println(field.Interface())
+    Init()
+    for _, model := range models {
+        s := reflect.New(model).Elem()
+        typeOfPerson := s.Type()
+        for i := 0; i < s.NumField(); i++ {
+            field := s.Field(i)
+            fmt.Println(typeOfPerson.Field(i).Name)
+            fmt.Println(field.Type())
+            fmt.Println(field.Interface())
+        }
     }
 }
